@@ -26,18 +26,32 @@ public class PlayerMovement : MonoBehaviour{
 
     private void Update(){
         //Chamada a cada frame.
-        
+
+        PlayerInput();
+    }
+
+    private void PlayerInput()
+    {
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0)) //0 botão esquerda, 1 botão direito do mouse
+        {
+            ManageMovement();
+        }
+    }
+
+    private void ManageMovement()
+    {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //Checar onde o mouse está;
-        Debug.DrawRay(ray.origin, ray.direction*150, Color.red);
+        Debug.DrawRay(ray.origin, ray.direction * 150, Color.red);
 
         RaycastHit hit; //Para armazenar quando o ray bater em algo;
 
-        if(Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer)){
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
+        {
 
-            if (hit.collider.CompareTag("Ground")){
+            if (hit.collider.CompareTag("Ground"))
+            {
 
                 nav.SetDestination(hit.point);
-
             }
         }
     }
